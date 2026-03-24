@@ -151,8 +151,8 @@ const ProductGrid = ({
           style={{
             top: '10px',
             right: '10px',
-            background: '#fff',
-            borderRadius: '50%',
+            // background: '#fff',
+            // borderRadius: '50%',
             padding: '8px',
             cursor: wishlistActionIds.includes(productId) ? 'not-allowed' : 'pointer',
             boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
@@ -192,10 +192,10 @@ const ProductGrid = ({
                 {item.mrp && item.mrp > item.sellingPrice ? (
                   <>
                     <span className="current-price">
-                      Rs {item.sellingPrice}
+                        Rs {item.sellingPrice.toLocaleString('en-IN')}/-
                     </span>
                     <span className="original-price">
-                      Rs {item.mrp}
+                        Rs {item.mrp.toLocaleString('en-IN')}/-
                     </span>
                     {item.discountPercent > 0 && (
                       <span className="discount-badge">
@@ -205,7 +205,7 @@ const ProductGrid = ({
                   </>
                 ) : (
                   <span className="current-price">
-                    Rs {item.sellingPrice}
+                     Rs {item.sellingPrice.toLocaleString('en-IN')}/-
                   </span>
                 )}
               </div>
