@@ -274,8 +274,8 @@ const Header = () => {
     (sum, item) => sum + Number(item?.quantity || 0),
     0,
   );
-  const announcementText =
-    'Get 5% off on your 1st order, after you subscribe with us, WE SUGGEST- FOR FAMILY WEDDINGS | BRIDESMAID OR BESTMAN GIFTING | CUSTOM ORDERS, CONTACT US DIRECTLY';
+ const announcementText =
+    'Get 5% off on your 1st order, after you subscribe with us | WE SUGGEST- FOR FAMILY WEDDINGS, BRIDESMAID OR BESTMAN GIFTING, CUSTOM ORDERS, CONTACT US DIRECTLY';
 
   return (
     <>

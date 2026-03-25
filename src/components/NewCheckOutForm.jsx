@@ -282,7 +282,7 @@ const NewCheckOutForm = () => {
           <div className="container">
             <div className="checkout-container">
               <div className="checkout-form-section">
-                <h2 className="mb-30">Shipping Address ashu</h2>
+                <h2 className="mb-30">Shipping Address</h2>
 
                 <label className="section-heading">Delivery</label>
                 <div className="form-input-wrapper">

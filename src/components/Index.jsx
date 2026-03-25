@@ -29,14 +29,16 @@ const inputStyle = {
 const homePageBackgroundStyle = {
   backgroundImage:
     'linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url("/images/slider.png")',
-  backgroundRepeat: "repeat-y",
-  backgroundSize: "100% auto",
-  backgroundPosition: "top center",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  backgroundPosition: "center center",
+  backgroundAttachment: "fixed",  // image stays fixed, content scrolls over it
+  minHeight: "100vh",
 };
 
 const POPUP_SUBMITTED_KEY = "user_info_popup_submitted";
 const POPUP_LAST_CLOSED_KEY = "user_info_popup_last_closed";
-const POPUP_INTERVAL_MS = 2*1000 *60 ; // 2 minutes
+const POPUP_INTERVAL_MS = 30 *1000;
 
 const Index = () => {
   useFadeInOnScroll();
@@ -284,7 +286,7 @@ const submitUserInfo = async (event) => {
   Welcome To <span style={{ color: "#c8a97e" }}>KuchalagIndia</span>
 </h3>
 <p style={{ textAlign: "center", fontSize: "13px", color: "#666", marginBottom: "18px" }}>
-  <span style={{ fontStyle: "italic", letterSpacing: "1px" }}>Kuch Alag</span> ✨
+  <span style={{ fontStyle: "italic", letterSpacing: "1px" }}>5% off on your 1st order after you subscribe to us</span> 
 </p>
 
       <form onSubmit={submitUserInfo}>

@@ -16,6 +16,9 @@ const CustomOrder = () => {
           padding: "0 16px",
         }}
       >
+        <h2 className="title" style={{ textAlign: "center" , marginBottom:"15px"}}>
+          <span>Custom Order</span>
+        </h2>
         {/* CARD */}
         <div
           style={{
