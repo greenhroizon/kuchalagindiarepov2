@@ -83,7 +83,7 @@ axiosInstance.interceptors.response.use(
 
     if (status === 401 && !isPublicRequest) {
       // sessionStorage.clear();
-      toast.error(errorMsg);
+      toast.error("Login Required");
     } else if ([400, 404, 500].includes(status)) {
       toast.error(errorMsg);
     } else if (

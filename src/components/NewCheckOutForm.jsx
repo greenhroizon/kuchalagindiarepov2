@@ -490,7 +490,7 @@ const fetchAllCoupons = async () => {
                           {appliedCoupon.code}
                         </span>
                         <span className="coupon-discount-text">
-                          {appliedCoupon.type === "PERCENTAGE"
+                          {appliedCoupon.type === "PERCENT"
                             ? `${appliedCoupon.value}% off`
                             : `₹${appliedCoupon.value} off`}
                         </span>
@@ -591,7 +591,7 @@ const fetchAllCoupons = async () => {
               )}
             </div>
             <div style={{ fontWeight: 700, fontSize: "13px", color: "#28a745", marginLeft: "12px" }}>
-              {coupon.type === "PERCENTAGE" ? `${coupon.value}% off` : `₹${coupon.value} off`}
+              {coupon.type === "PERCENT" ? `${coupon.value}% off` : `₹${coupon.value} off`}
             </div>
           </div>
         ))

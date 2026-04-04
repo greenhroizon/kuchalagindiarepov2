@@ -1,11 +1,112 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { customOrderApi } from "../apis/service";
 import { useToast } from "./common/Toast";
-
+import { googleClientId } from "../apis/env";
+import { googleLoginApi, loginApi } from "../apis/service";
+import { useNavigate } from "react-router-dom";
 const CustomOrder = () => {
   const [loading, setLoading] = useState(false);
-  const toast=useToast()
+  const toast=useToast();
+  const navigate = useNavigate();
+  const googleButtonRef = useRef(null);
+    const [googleLoading, setGoogleLoading] = useState(false);
+    const [googleReady, setGoogleReady] = useState(false);
+    useEffect(() => {
+      if (!googleClientId || !googleButtonRef.current) {
+        return;
+      }
+  
+      let isMounted = true;
+  
+      const initializeGoogleButton = () => {
+        if (!isMounted || !googleButtonRef.current || !window.google?.accounts?.id) {
+          return false;
+        }
+  
+        googleButtonRef.current.innerHTML = "";
+        const buttonWidth = Math.min(
+          360,
+          googleButtonRef.current.parentElement?.offsetWidth || 360,
+        );
+  
+        window.google.accounts.id.initialize({
+          client_id: googleClientId,
+          callback: async (credentialResponse) => {
+            const idToken = credentialResponse?.credential;
+            if (!idToken) {
+              toast.error("Google login failed. Please try again.");
+              return;
+            }
+  
+            try {
+              setGoogleLoading(true);
+              const response = await googleLoginApi({ idToken });
+  
+              sessionStorage.setItem("userLoggedIn", response.data.token);
+              sessionStorage.removeItem("token");
+              sessionStorage.removeItem("email");
+              navigate("/");
+            } catch (error) {
+              console.error("Google login error", error);
+            } finally {
+              setGoogleLoading(false);
+            }
+          },
+          auto_select: false,
+          cancel_on_tap_outside: true,
+        });
+  
+        window.google.accounts.id.renderButton(googleButtonRef.current, {
+          theme: "outline",
+          size: "large",
+          text: "continue_with",
+          shape: "pill",
+          width: buttonWidth,
+        });
+  
+        setGoogleReady(true);
+        return true;
+      };
+  
+      if (initializeGoogleButton()) {
+        return () => {
+          isMounted = false;
+        };
+      }
+  
+      setGoogleReady(false);
+  
+      const existingScript = document.querySelector(
+        'script[src="https://accounts.google.com/gsi/client"]',
+      );
+  
+      const script = existingScript || document.createElement("script");
+      const handleLoad = () => {
+        initializeGoogleButton();
+      };
+      const handleError = () => {
+        if (!isMounted) return;
+        setGoogleReady(false);
+        toast.error("Unable to load Google login. Please try again.");
+      };
+  
+      script.src = "https://accounts.google.com/gsi/client";
+      script.async = true;
+      script.defer = true;
+      script.addEventListener("load", handleLoad);
+      script.addEventListener("error", handleError);
+  
+      if (!existingScript) {
+        document.body.appendChild(script);
+      }
+  
+      return () => {
+        isMounted = false;
+        script.removeEventListener("load", handleLoad);
+        script.removeEventListener("error", handleError);
+      };
+    }, [navigate, toast]);
 
   return (
     <div style={{ paddingTop: "200px", paddingBottom: "80px" }} className="bg-index">
@@ -209,6 +310,35 @@ const CustomOrder = () => {
                   >
                     {loading ? "Submitting..." : "Submit"}
                   </button>
+                  <div style={{ marginTop: "20px", textAlign: "center" }}>
+                                      {googleClientId ? (
+                                        <div
+                                          ref={googleButtonRef}
+                                          style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            minHeight: "44px",
+                                            opacity: googleLoading ? 0.7 : 1,
+                                            pointerEvents: googleLoading ? "none" : "auto",
+                                          }}
+                                        />
+                                      ) : (
+                                        <small className="erro-text text-color">
+                                          Google login is not configured yet.
+                                        </small>
+                                      )}
+                                      {googleClientId && !googleReady && !googleLoading ? (
+                                        <small
+                                          style={{
+                                            display: "block",
+                                            marginTop: "10px",
+                                            color: "#666",
+                                          }}
+                                        >
+                                          Loading Google sign-in...
+                                        </small>
+                                      ) : null}
+                                    </div>
                 </Form>
               )}
             </Formik>

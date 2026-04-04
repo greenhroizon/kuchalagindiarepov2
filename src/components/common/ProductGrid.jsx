@@ -3,6 +3,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { addWishlist, getAllWishlist, removeWishlist } from '../../apis/service';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { useLocation } from "react-router-dom";
 import {
   addGuestWishlistId,
   dispatchWishlistUpdated,
@@ -33,6 +34,9 @@ const ProductGrid = ({
   const [wishlistIds, setWishlistIds] = useState([]);
   const [wishlistActionIds, setWishlistActionIds] = useState([]);
 
+  const location = useLocation();
+
+  const isCategoryPage = location.pathname.startsWith("/categories");
   const list = Array.isArray(products)
     ? typeof limit === 'number' && limit > 0
       ? products.slice(0, limit)
@@ -292,7 +296,7 @@ const ProductGrid = ({
       {title && (
         <div className="common-sec">
           <h2 className="title">
-            <span>{list[0].categoryId.name}</span>
+            <span> {isCategoryPage ? list?.[0]?.categoryId?.name : "Best Seller"}</span>
           </h2>
           {subtitle && <p className="sub">{subtitle}</p>}
         </div>

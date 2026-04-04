@@ -525,7 +525,7 @@ const ProductDetail = () => {
                   fontSize: "16px",
                 }}
               >
-                Buy Now
+                Add To Cart
               </button>
             </div>
           </div>

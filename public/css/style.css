@@ -122,7 +122,6 @@ marquee.move-text-animate span {
 
 .logo img {
   width: 70px;
-  transform: scaleX(-1);
 }
 
 nav ul li a {

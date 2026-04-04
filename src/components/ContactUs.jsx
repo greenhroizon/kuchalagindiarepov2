@@ -62,10 +62,7 @@ const ContactUs = () => {
               </div>
 
               <div className="form-section">
-                <div className="form-header">
-                  <h2>Contact Us</h2>
-                 
-                </div>
+
 
                 <Formik
                   initialValues={{
