@@ -168,7 +168,7 @@ const Profile = () => {
                       >
                         {/* Image */}
                         <img
-                          src="/dist/images/graduate_4465457.png"
+                          src="images/graduate_4465457.png"
                           alt="profile"
                           style={{
                             width: "100%",
