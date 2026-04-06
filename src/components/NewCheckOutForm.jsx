@@ -307,8 +307,8 @@ const fetchAllCoupons = async () => {
   return (
     <>
       {loading && <Loader text="Loading..." />}
-      <div>
-        <div className="checkout-page pt-100 bg-index">
+      <div className="bg-index">
+        <div className="checkout-page pt-100">
           <div className="container">
             <div className="checkout-container">
               <div className="checkout-form-section">

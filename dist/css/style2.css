@@ -3333,9 +3333,7 @@ p.tc a {
 .checkout-container {
   display: grid;
   grid-template-columns: 1fr 400px;
-  gap: 30px;  
-  margin-top: 150px;
-  
+  gap: 30px;
 }
 
 .checkout-form-section {
@@ -3659,6 +3657,7 @@ p.tc a {
 @media (max-width: 768px) {
   .checkout-container {
     grid-template-columns: 1fr;
+    padding-top: 80px;
   }
 
   .name-fields-row,
