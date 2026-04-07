@@ -34,7 +34,7 @@ const homePageBackgroundStyle = {
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   backgroundPosition: "center center",
-  backgroundAttachment: isIOS ? "scroll" : "fixed", // ✅ FIX
+  backgroundAttachment: isIOS ? "scroll" : "fixed", 
   minHeight: "100vh",
 };
 const POPUP_SUBMITTED_KEY = "user_info_popup_submitted";

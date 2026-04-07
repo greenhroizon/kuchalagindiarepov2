@@ -33,6 +33,8 @@ const NewCheckOutForm = () => {
   const [couponError, setCouponError] = useState("");
   const [prodStatus, setProdStatus] = useState(false);
 
+      const token = sessionStorage.getItem("userLoggedIn");
+
   const [form, setForm] = useState({
     country: "India",
     firstName: "",
@@ -504,11 +506,6 @@ const fetchAllCoupons = async () => {
                     </div>
                   ) : (
                     <>
-                      {/* REPLACE this existing block ↓ */}
-{/* <input ... discount-code-input /> */}
-{/* <button ... apply-discount-btn /> */}
-
-{/* WITH this ↓ */}
 <div style={{ position: "relative", flex: 1 }}>
   <input
     type="text"
@@ -560,11 +557,15 @@ const fetchAllCoupons = async () => {
         <div style={{ padding: "14px", textAlign: "center", color: "#888", fontSize: "13px" }}>
           Loading coupons...
         </div>
+      ): !token ? (
+        <div style={{ padding: "14px", textAlign: "center", color: "#888", fontSize: "13px" }}>
+          Login to view available coupons
+        </div>
       ) : allCoupons.length === 0 ? (
         <div style={{ padding: "14px", textAlign: "center", color: "#888", fontSize: "13px" }}>
           No coupons available
         </div>
-      ) : (
+      ):(
         allCoupons.map((coupon) => (
           <div
             key={coupon._id || coupon.code}
@@ -596,16 +597,16 @@ const fetchAllCoupons = async () => {
           </div>
         ))
       )}
-    </div>
-  )}
-</div>
-<button
-  className="apply-discount-btn"
-  onClick={handleApplyCoupon}
-  disabled={couponLoading}
->
-  {couponLoading ? "Applying..." : "Apply"}
-</button>
+       </div>
+          )}
+        </div>
+        <button
+          className="apply-discount-btn"
+          onClick={handleApplyCoupon}
+          disabled={couponLoading}
+        >
+          {couponLoading ? "Applying..." : "Apply"}
+        </button>
                     </>
                   )}
                 </div>

@@ -3657,7 +3657,6 @@ p.tc a {
 @media (max-width: 768px) {
   .checkout-container {
     grid-template-columns: 1fr;
-    margin-top: 80px;
   }
 
   .name-fields-row,

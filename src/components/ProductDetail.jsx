@@ -292,41 +292,47 @@ const ProductDetail = () => {
 
             {/* Thumbnails */}
             <div
-              style={{
-                display: "flex",
-                gap: "10px",
-                marginTop: "12px",
-                marginLeft: "65px", // shifts thumbnails right
-              }}
-            >
-              {images.map((img, index) => (
-                <button
-                  key={index}
-                  onClick={() => setMainImageIndex(index)}
-                  style={{
-                    border:
-                      mainImageIndex === index
-                        ? "2px solid #e60023"
-                        : "1px solid #ddd",
-                    borderRadius: "8px",
-                    padding: 0,
-                    background: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  <img
-                    src={`${image_url}/${img}`}
-                    alt="thumb"
-                    style={{
-                      width: "70px",
-                      height: "70px",
-                      objectFit: "cover",
-                      borderRadius: "6px",
-                    }}
-                  />
-                </button>
-              ))}
-            </div>
+  style={{
+    display: "flex",
+    gap: "10px",
+    marginTop: "12px",
+    marginLeft: "65px",
+    overflowX: "auto",
+    scrollSnapType: "x mandatory",
+    WebkitOverflowScrolling: "touch",
+  }}
+>
+  {images.map((img, index) => (
+    <button
+      key={index}
+      onClick={() => setMainImageIndex(index)}
+      style={{
+        flex: "0 0 calc(33.33% - 7px)", // 3 items visible
+        maxWidth: "70px",
+        scrollSnapAlign: "start",
+        border:
+          mainImageIndex === index
+            ? "2px solid #e60023"
+            : "1px solid #ddd",
+        borderRadius: "8px",
+        padding: 0,
+        background: "none",
+        cursor: "pointer",
+      }}
+    >
+      <img
+        src={`${image_url}/${img}`}
+        alt="thumb"
+        style={{
+          width: "100%",
+          height: "70px",
+          objectFit: "cover",
+          borderRadius: "6px",
+        }}
+      />
+    </button>
+  ))}
+</div>
           </div>
 
           {/* DETAILS */}
