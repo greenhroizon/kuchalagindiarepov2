@@ -39,7 +39,7 @@ const homePageBackgroundStyle = {
 };
 const POPUP_SUBMITTED_KEY = "user_info_popup_submitted";
 const POPUP_LAST_CLOSED_KEY = "user_info_popup_last_closed";
-const POPUP_INTERVAL_MS = 30 *1000;
+const POPUP_INTERVAL_MS = 30 *100;
 
 const Index = () => {
   useFadeInOnScroll();
@@ -114,29 +114,37 @@ const [userInfoForm, setUserInfoForm] = useState({
     }
   };
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setLoading(true);
-        const [categories, allProducts, allBanners] = await Promise.all([
-          fetchAllCategories(),
-          fetchAllProducts(),
-          fetchAllBanners(),
-        ]);
-        console.log("categories", categories);
+useEffect(() => {
+  const loadData = async () => {
+    try {
+      setLoading(true);
 
-        setAllBanners(allBanners);
-        setAllCategories(categories);
-        setAllProducts(allProducts);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+      const [categories, allProducts, allBanners] = await Promise.all([
+        fetchAllCategories(),
+        fetchAllProducts(),
+        fetchAllBanners(),
+      ]);
 
-    loadData();
-  }, []);
+      const sortedProducts = [...allProducts].sort((a, b) => {
+        const aBest = a.bestSeller === true;
+        const bBest = b.bestSeller === true;
+
+        return bBest - aBest;
+      });
+
+      setAllBanners(allBanners);
+      setAllCategories(categories);
+      setAllProducts(sortedProducts); 
+
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  loadData();
+}, []);
 
   // Don't show popup on first load; start 2-min timer. If logged in, never show.
   useEffect(() => {
@@ -479,7 +487,7 @@ const submitUserInfo = async (event) => {
                 subtitle="Discover the magic of exquisite jewels that celebrate your special day with our endless love!"
                 products={allProducts}
                 loading={loading}
-                limit={12}
+                limit={4}
                 addingProductId={addingProductId}
                 onAddToCart={addToCart}
                 onProductClick={handleProductNavigate}

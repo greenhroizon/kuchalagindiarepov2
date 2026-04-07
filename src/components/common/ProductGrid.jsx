@@ -296,7 +296,7 @@ const ProductGrid = ({
       {title && (
         <div className="common-sec">
           <h2 className="title">
-            <span> {isCategoryPage ? list?.[0]?.categoryId?.name : "Best Seller"}</span>
+            <span> {isCategoryPage ? list?.[1]?.categoryId?.name : "Best Seller"}</span>
           </h2>
           {subtitle && <p className="sub">{subtitle}</p>}
         </div>
