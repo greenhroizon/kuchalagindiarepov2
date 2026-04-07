@@ -26,16 +26,17 @@ const inputStyle = {
   background: "#fafafa",
 };
 
+const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
 const homePageBackgroundStyle = {
   backgroundImage:
     'linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url("/images/slider.png")',
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   backgroundPosition: "center center",
-  backgroundAttachment: "fixed",  // image stays fixed, content scrolls over it
+  backgroundAttachment: isIOS ? "scroll" : "fixed", // ✅ FIX
   minHeight: "100vh",
 };
-
 const POPUP_SUBMITTED_KEY = "user_info_popup_submitted";
 const POPUP_LAST_CLOSED_KEY = "user_info_popup_last_closed";
 const POPUP_INTERVAL_MS = 30 *1000;
